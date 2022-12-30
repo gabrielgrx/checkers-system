@@ -2,7 +2,7 @@ package checkers;
 
 import boardgame.Board;
 import boardgame.Position;
-import boardgame.Stone;
+import checkers.pieces.Stone;
 import checkers.enums.Color;
 
 public class CheckersMatch {
@@ -26,6 +26,7 @@ public class CheckersMatch {
 
     private void initialSetup() {
         board.placePiece(new Stone(board, Color.BLUE), new Position(2, 1));
-        board.placePiece(new Stone(board, Color.BLUE), new Position(4, 1));
+        board.placePiece(new Stone(board, Color.BLUE), new Position(7, 1));
+        board.placePiece(new Stone(board, Color.BLUE), new Position(7, 1));
     }
 }

@@ -1,5 +1,6 @@
-package boardgame;
+package checkers.pieces;
 
+import boardgame.Board;
 import checkers.CheckersPiece;
 import checkers.enums.Color;
 
