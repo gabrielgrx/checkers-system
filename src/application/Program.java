@@ -1,13 +1,13 @@
 package application;
 
-import boardgame.Board;
-import boardgame.Position;
+import checkers.CheckersMatch;
 
 public class Program {
 
     public static void main(String[] args) {
 
-        Board board = new Board(8, 8);
+        CheckersMatch checkersMatch = new CheckersMatch();
+        UI.printBoard(checkersMatch.getPieces());
 
     }
 }
