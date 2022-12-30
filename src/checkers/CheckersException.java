@@ -1,6 +1,8 @@
 package checkers;
 
-public class CheckersException extends RuntimeException {
+import boardgame.BoardException;
+
+public class CheckersException extends BoardException {
 
     public CheckersException(String msg) {
         super(msg);
