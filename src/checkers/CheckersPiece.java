@@ -2,6 +2,7 @@ package checkers;
 
 import boardgame.Board;
 import boardgame.Piece;
+import boardgame.Position;
 import checkers.enums.Color;
 
 public  abstract class CheckersPiece extends Piece {
@@ -17,4 +18,8 @@ public  abstract class CheckersPiece extends Piece {
         return color;
     }
 
+    protected boolean isThereOpponentPiece(Position position) {
+        CheckersPiece p = (CheckersPiece) getBoard().piece(position);
+        return p != null && p.getColor() != color;
+    }
 }

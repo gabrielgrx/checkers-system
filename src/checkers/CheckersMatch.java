@@ -25,10 +25,17 @@ public class CheckersMatch {
         return mat;
     }
 
+    public boolean[][] possibleMoves(CheckersPosition sourcePosition) {
+        Position position = sourcePosition.toPosition();
+        vallidateSourcePosition(position);
+        return board.piece(position).possibleMoves();
+    }
+
     public CheckersPiece performCheckersMove(CheckersPosition sourcePosition, CheckersPosition targetPosition) {
         Position source = sourcePosition.toPosition();
         Position target = targetPosition.toPosition();
         vallidateSourcePosition(source);
+        validateTargetPosition(source, target);
         Piece capturedPiece = makeMove(source, target);
         return (CheckersPiece) capturedPiece;
     }
@@ -49,17 +56,23 @@ public class CheckersMatch {
         }
     }
 
+    private void validateTargetPosition(Position source, Position target) {
+        if (!board.piece(source).possibleMove(target)) {
+            throw new CheckersException("The chosen piece can't move to target position");
+        }
+    }
+
     private void placeNewPiece(char column, int row, CheckersPiece piece) {
         board.placePiece(piece, new CheckersPosition(column, row).toPosition());
     }
 
     private void initialSetup() {
-        placeNewPiece('a', 2, new Stone(board, Color.BLUE));
+        placeNewPiece('a', 1, new Stone(board, Color.BLUE));
         placeNewPiece('b', 2, new Stone(board, Color.BLUE));
-        placeNewPiece('c', 2, new Stone(board, Color.BLUE));
+        placeNewPiece('c', 1, new Stone(board, Color.BLUE));
 
         placeNewPiece('a', 7, new Stone(board, Color.RED));
-        placeNewPiece('b', 7, new Stone(board, Color.RED));
+        placeNewPiece('b', 8, new Stone(board, Color.RED));
         placeNewPiece('c', 7, new Stone(board, Color.RED));
     }
 }
