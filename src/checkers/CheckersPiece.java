@@ -4,7 +4,7 @@ import boardgame.Board;
 import boardgame.Piece;
 import checkers.enums.Color;
 
-public class CheckersPiece extends Piece {
+public  abstract class CheckersPiece extends Piece {
 
     private Color color;
 
@@ -16,4 +16,5 @@ public class CheckersPiece extends Piece {
     public Color getColor() {
         return color;
     }
+
 }

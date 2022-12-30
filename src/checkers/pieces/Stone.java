@@ -14,4 +14,9 @@ public class Stone extends CheckersPiece {
     public String toString() {
         return "S";
     }
+
+    @Override
+    public boolean[][] possibleMoves() {
+        return new boolean[getBoard().getRows()][getBoard().getColumns()];
+    }
 }
