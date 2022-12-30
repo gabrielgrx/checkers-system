@@ -31,5 +31,9 @@ public class CheckersMatch {
         placeNewPiece('a', 2, new Stone(board, Color.BLUE));
         placeNewPiece('b', 2, new Stone(board, Color.BLUE));
         placeNewPiece('c', 2, new Stone(board, Color.BLUE));
+
+        placeNewPiece('a', 7, new Stone(board, Color.RED));
+        placeNewPiece('b', 7, new Stone(board, Color.RED));
+        placeNewPiece('c', 7, new Stone(board, Color.RED));
     }
 }
