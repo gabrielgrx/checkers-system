@@ -1,9 +1,8 @@
 package checkers;
 
 import boardgame.Board;
-import boardgame.Position;
-import checkers.pieces.Stone;
 import checkers.enums.Color;
+import checkers.pieces.Stone;
 
 public class CheckersMatch {
 
@@ -24,9 +23,13 @@ public class CheckersMatch {
         return mat;
     }
 
+    private void placeNewPiece(char column, int row, CheckersPiece piece) {
+        board.placePiece(piece, new CheckersPosition(column, row).toPosition());
+    }
+
     private void initialSetup() {
-        board.placePiece(new Stone(board, Color.BLUE), new Position(2, 1));
-        board.placePiece(new Stone(board, Color.BLUE), new Position(7, 1));
-        board.placePiece(new Stone(board, Color.BLUE), new Position(7, 1));
+        placeNewPiece('a', 2, new Stone(board, Color.BLUE));
+        placeNewPiece('b', 2, new Stone(board, Color.BLUE));
+        placeNewPiece('c', 2, new Stone(board, Color.BLUE));
     }
 }
