@@ -67,12 +67,17 @@ public class CheckersMatch {
     }
 
     private void initialSetup() {
-        placeNewPiece('a', 1, new Stone(board, Color.BLUE));
-        placeNewPiece('b', 2, new Stone(board, Color.BLUE));
+        placeNewPiece('d', 5, new Stone(board, Color.BLUE));
+        placeNewPiece('f', 2, new Stone(board, Color.BLUE));
+        placeNewPiece('f', 6, new Stone(board, Color.BLUE));
+        placeNewPiece('b', 6, new Stone(board, Color.BLUE));
         placeNewPiece('c', 1, new Stone(board, Color.BLUE));
 
-        placeNewPiece('a', 7, new Stone(board, Color.RED));
-        placeNewPiece('b', 8, new Stone(board, Color.RED));
-        placeNewPiece('c', 7, new Stone(board, Color.RED));
+        placeNewPiece('a', 4, new Stone(board, Color.RED));
+        placeNewPiece('b', 2, new Stone(board, Color.RED));
+        placeNewPiece('c', 4, new Stone(board, Color.RED));
+        placeNewPiece('e', 4, new Stone(board, Color.RED));
+        placeNewPiece('e', 7, new Stone(board, Color.RED));
+        placeNewPiece('g', 7, new Stone(board, Color.RED));
     }
 }
