@@ -1,5 +1,6 @@
 package application;
 
+import checkers.CheckersMatch;
 import checkers.CheckersPiece;
 import checkers.CheckersPosition;
 import checkers.enums.Color;
@@ -47,6 +48,12 @@ public class UI {
         }
     }
 
+    public static void printMatch(CheckersMatch checkersMatch) {
+        printBoard(checkersMatch.getPieces());
+        System.out.println();
+        System.out.println("Turn: " + checkersMatch.getTurn());
+        System.out.println("Waiting player: " + checkersMatch.getCurrentPlayer());
+    }
 
     public static void printBoard(CheckersPiece[][] pieces) {
         for (int i = 0; i < pieces.length; i++) {
