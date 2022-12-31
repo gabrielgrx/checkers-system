@@ -56,7 +56,13 @@ public class UI {
         printCapturedPieces(captured);
         System.out.println();
         System.out.println("Turn: " + checkersMatch.getTurn());
-        System.out.println("Waiting player: " + checkersMatch.getCurrentPlayer());
+        if (!checkersMatch.isEndMatch()) {
+            System.out.println("Waiting player: " + checkersMatch.getCurrentPlayer());
+        } else {
+            System.out.println("END GAME!");
+            System.out.println("Winner: " + ANSI_YELLOW + checkersMatch.getCurrentPlayer() + ANSI_RESET);
+        }
+
     }
 
     public static void printBoard(CheckersPiece[][] pieces) {

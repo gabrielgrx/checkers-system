@@ -14,6 +14,7 @@ public class CheckersMatch {
     private int turn;
     private Color currentPlayer;
     private Board board;
+    private boolean endMatch;
 
     private List<Piece> piecesOnTheBoard = new ArrayList<>();
     private List<Piece> capturedPieces = new ArrayList<>();
@@ -31,6 +32,21 @@ public class CheckersMatch {
 
     public Color getCurrentPlayer() {
         return currentPlayer;
+    }
+
+    public boolean isEndMatch() {
+        return endMatch;
+    }
+
+    private boolean terminteMatch() {
+        List<Piece> blue = piecesOnTheBoard.stream().filter(x -> ((CheckersPiece) x).getColor() == Color.BLUE).toList();
+        List<Piece> red = piecesOnTheBoard.stream().filter(x -> ((CheckersPiece) x).getColor() == Color.RED).toList();
+        System.out.println(blue.size());
+        System.out.println(red.size());
+        if(blue.size() == 0 || red.size() == 0) {
+            return true;
+        }
+        return false;
     }
 
     public CheckersPiece[][] getPieces() {
@@ -55,7 +71,11 @@ public class CheckersMatch {
         vallidateSourcePosition(source);
         validateTargetPosition(source, target);
         Piece capturedPiece = makeMove(source, target);
-        nextTurn();
+        if(terminteMatch()) {
+            endMatch = true;
+        } else {
+            nextTurn();
+        }
         return (CheckersPiece) capturedPiece;
     }
 
@@ -138,37 +158,35 @@ public class CheckersMatch {
     }
 
     private void initialSetup() {
-//        placeNewPiece('e', 4, new Stone(board, Color.RED));
-//        placeNewPiece('c', 4, new Stone(board, Color.RED));
-//        placeNewPiece('e', 6, new Stone(board, Color.RED));
-//        placeNewPiece('c', 6, new Stone(board, Color.RED));
+        placeNewPiece('e', 4, new Stone(board, Color.BLUE));
+        placeNewPiece('c', 4, new Stone(board, Color.BLUE));
+
+        placeNewPiece('d', 5, new Stone(board, Color.RED));
+
+//        placeNewPiece('a', 2, new Stone(board, Color.BLUE));
+//        placeNewPiece('b', 1, new Stone(board, Color.BLUE));
+//        placeNewPiece('b', 3, new Stone(board, Color.BLUE));
+//        placeNewPiece('c', 2, new Stone(board, Color.BLUE));
+//        placeNewPiece('d', 1, new Stone(board, Color.BLUE));
+//        placeNewPiece('d', 3, new Stone(board, Color.BLUE));
+//        placeNewPiece('e', 2, new Stone(board, Color.BLUE));
+//        placeNewPiece('f', 1, new Stone(board, Color.BLUE));
+//        placeNewPiece('f', 3, new Stone(board, Color.BLUE));
+//        placeNewPiece('g', 2, new Stone(board, Color.BLUE));
+//        placeNewPiece('h', 1, new Stone(board, Color.BLUE));
+//        placeNewPiece('h', 3, new Stone(board, Color.BLUE));
 //
-//        placeNewPiece('d', 5, new Stone(board, Color.BLUE));
-
-        placeNewPiece('a', 2, new Stone(board, Color.BLUE));
-        placeNewPiece('b', 1, new Stone(board, Color.BLUE));
-        placeNewPiece('b', 3, new Stone(board, Color.BLUE));
-        placeNewPiece('c', 2, new Stone(board, Color.BLUE));
-        placeNewPiece('d', 1, new Stone(board, Color.BLUE));
-        placeNewPiece('d', 3, new Stone(board, Color.BLUE));
-        placeNewPiece('e', 2, new Stone(board, Color.BLUE));
-        placeNewPiece('f', 1, new Stone(board, Color.BLUE));
-        placeNewPiece('f', 3, new Stone(board, Color.BLUE));
-        placeNewPiece('g', 2, new Stone(board, Color.BLUE));
-        placeNewPiece('h', 1, new Stone(board, Color.BLUE));
-        placeNewPiece('h', 3, new Stone(board, Color.BLUE));
-
-        placeNewPiece('a', 8, new Stone(board, Color.RED));
-        placeNewPiece('a', 6, new Stone(board, Color.RED));
-        placeNewPiece('b', 7, new Stone(board, Color.RED));
-        placeNewPiece('c', 8, new Stone(board, Color.RED));
-        placeNewPiece('c', 6, new Stone(board, Color.RED));
-        placeNewPiece('d', 7, new Stone(board, Color.RED));
-        placeNewPiece('e', 8, new Stone(board, Color.RED));
-        placeNewPiece('e', 6, new Stone(board, Color.RED));
-        placeNewPiece('f', 7, new Stone(board, Color.RED));
-        placeNewPiece('g', 8, new Stone(board, Color.RED));
-        placeNewPiece('g', 6, new Stone(board, Color.RED));
-        placeNewPiece('h', 7, new Stone(board, Color.RED));
+//        placeNewPiece('a', 8, new Stone(board, Color.RED));
+//        placeNewPiece('a', 6, new Stone(board, Color.RED));
+//        placeNewPiece('b', 7, new Stone(board, Color.RED));
+//        placeNewPiece('c', 8, new Stone(board, Color.RED));
+//        placeNewPiece('c', 6, new Stone(board, Color.RED));
+//        placeNewPiece('d', 7, new Stone(board, Color.RED));
+//        placeNewPiece('e', 8, new Stone(board, Color.RED));
+//        placeNewPiece('e', 6, new Stone(board, Color.RED));
+//        placeNewPiece('f', 7, new Stone(board, Color.RED));
+//        placeNewPiece('g', 8, new Stone(board, Color.RED));
+//        placeNewPiece('g', 6, new Stone(board, Color.RED));
+//        placeNewPiece('h', 7, new Stone(board, Color.RED));
     }
 }
