@@ -6,7 +6,9 @@ import checkers.CheckersPosition;
 import checkers.enums.Color;
 
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class UI {
 
@@ -48,8 +50,10 @@ public class UI {
         }
     }
 
-    public static void printMatch(CheckersMatch checkersMatch) {
+    public static void printMatch(CheckersMatch checkersMatch, List<CheckersPiece> captured) {
         printBoard(checkersMatch.getPieces());
+        System.out.println();
+        printCapturedPieces(captured);
         System.out.println();
         System.out.println("Turn: " + checkersMatch.getTurn());
         System.out.println("Waiting player: " + checkersMatch.getCurrentPlayer());
@@ -93,4 +97,13 @@ public class UI {
         System.out.print(" ");
     }
 
+    private static void printCapturedPieces(List<CheckersPiece> captured) {
+        List<CheckersPiece> blue = captured.stream().filter(x -> x.getColor() == Color.BLUE).toList();
+        List<CheckersPiece> red = captured.stream().filter(x -> x.getColor() == Color.RED).toList();
+        System.out.println("Captured Pieces");
+        System.out.print("Blue: " + ANSI_BLUE + + blue.size() + "/12");
+        System.out.println(ANSI_RESET);
+        System.out.print("Red: " + ANSI_RED + + red.size() + "/12");
+        System.out.println(ANSI_RESET);
+    }
 }
