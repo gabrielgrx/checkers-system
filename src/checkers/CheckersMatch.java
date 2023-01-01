@@ -4,6 +4,7 @@ import boardgame.Board;
 import boardgame.Piece;
 import boardgame.Position;
 import checkers.enums.Color;
+import checkers.pieces.Dame;
 import checkers.pieces.Stone;
 
 import java.util.ArrayList;
@@ -41,8 +42,6 @@ public class CheckersMatch {
     private boolean terminteMatch() {
         List<Piece> blue = piecesOnTheBoard.stream().filter(x -> ((CheckersPiece) x).getColor() == Color.BLUE).toList();
         List<Piece> red = piecesOnTheBoard.stream().filter(x -> ((CheckersPiece) x).getColor() == Color.RED).toList();
-        System.out.println(blue.size());
-        System.out.println(red.size());
         if(blue.size() == 0 || red.size() == 0) {
             return true;
         }
@@ -158,10 +157,10 @@ public class CheckersMatch {
     }
 
     private void initialSetup() {
-        placeNewPiece('e', 4, new Stone(board, Color.BLUE));
-        placeNewPiece('c', 4, new Stone(board, Color.BLUE));
 
-        placeNewPiece('d', 5, new Stone(board, Color.RED));
+        placeNewPiece('c', 4, new Dame(board, Color.BLUE));
+
+        placeNewPiece('e', 5, new Dame(board, Color.RED));
 
 //        placeNewPiece('a', 2, new Stone(board, Color.BLUE));
 //        placeNewPiece('b', 1, new Stone(board, Color.BLUE));
