@@ -42,7 +42,7 @@ public class CheckersMatch {
     private boolean terminteMatch() {
         List<Piece> blue = piecesOnTheBoard.stream().filter(x -> ((CheckersPiece) x).getColor() == Color.BLUE).toList();
         List<Piece> red = piecesOnTheBoard.stream().filter(x -> ((CheckersPiece) x).getColor() == Color.RED).toList();
-        if(blue.size() == 0 || red.size() == 0) {
+        if (blue.isEmpty() || red.isEmpty()) {
             return true;
         }
         return false;
@@ -64,17 +64,44 @@ public class CheckersMatch {
         return board.piece(position).possibleMoves();
     }
 
+    private boolean opponentNearTargetPosition(Position targetPosition) {
+        CheckersPiece p = (CheckersPiece) board.piece(targetPosition);
+
+        Position p1 = new Position(targetPosition.getRow() - 1, targetPosition.getColumn() - 1);
+        Position p2 = new Position(targetPosition.getRow() - 1, targetPosition.getColumn() + 1);
+        Position p3 = new Position(targetPosition.getRow() + 1, targetPosition.getColumn() - 1);
+        Position p4 = new Position(targetPosition.getRow() + 1, targetPosition.getColumn() + 1);
+
+        if (board.positionExists(p1) && p.isThereOpponentPiece(p1)) {
+            return true;
+        }
+        if (board.positionExists(p2) && p.isThereOpponentPiece(p2)) {
+            return true;
+        }
+        if (board.positionExists(p3) && p.isThereOpponentPiece(p3)) {
+            return true;
+        }
+        if (board.positionExists(p4) && p.isThereOpponentPiece(p4)) {
+            return true;
+        }
+        return false;
+    }
+
     public CheckersPiece performCheckersMove(CheckersPosition sourcePosition, CheckersPosition targetPosition) {
+
         Position source = sourcePosition.toPosition();
         Position target = targetPosition.toPosition();
         vallidateSourcePosition(source);
         validateTargetPosition(source, target);
         Piece capturedPiece = makeMove(source, target);
-        if(terminteMatch()) {
+
+        if (terminteMatch()) {
             endMatch = true;
-        } else {
+        }
+        if (!opponentNearTargetPosition(target)) {
             nextTurn();
         }
+
         return (CheckersPiece) capturedPiece;
     }
 
@@ -158,9 +185,12 @@ public class CheckersMatch {
 
     private void initialSetup() {
 
-        placeNewPiece('c', 4, new Dame(board, Color.BLUE));
+        placeNewPiece('e', 4, new Stone(board, Color.BLUE));
+        placeNewPiece('e', 8, new Stone(board, Color.BLUE));
 
-        placeNewPiece('e', 5, new Dame(board, Color.RED));
+        placeNewPiece('d', 5, new Stone(board, Color.RED));
+        placeNewPiece('d', 3, new Stone(board, Color.RED));
+        placeNewPiece('b', 3, new Stone(board, Color.RED));
 
 //        placeNewPiece('a', 2, new Stone(board, Color.BLUE));
 //        placeNewPiece('b', 1, new Stone(board, Color.BLUE));
