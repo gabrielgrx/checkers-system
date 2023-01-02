@@ -219,23 +219,28 @@ public class CheckersMatch {
 
     private void initialSetup() {
 
-//        placeNewPiece('h', 3, new Dame(board, Color.BLUE));
-//        placeNewPiece('e', 7, new Dame(board, Color.BLUE));
+        placeNewPiece('d', 5, new Dame(board, Color.BLUE));
+        placeNewPiece('a', 8, new Dame(board, Color.BLUE));
+        placeNewPiece('h', 1, new Dame(board, Color.BLUE));
+//        placeNewPiece('g', 5, new Dame(board, Color.BLUE));
 //        placeNewPiece('e', 8, new Dame(board, Color.BLUE));
+//        placeNewPiece('c', 2, new Dame(board, Color.BLUE));
+
+        placeNewPiece('b', 7, new Dame(board, Color.RED));
+        placeNewPiece('f', 7, new Dame(board, Color.RED));
+        placeNewPiece('b', 3, new Dame(board, Color.RED));
+        placeNewPiece('f', 3, new Dame(board, Color.RED));
+//        placeNewPiece('d', 2, new Dame(board, Color.RED));
+
+//        placeNewPiece('e', 4, new Stone(board, Color.BLUE));
+//        placeNewPiece('a', 6, new Stone(board, Color.BLUE));
+//        placeNewPiece('h', 3, new Stone(board, Color.BLUE));
 //
-//        placeNewPiece('f', 5, new Dame(board, Color.RED));
-//        placeNewPiece('c', 4, new Dame(board, Color.RED));
-//        placeNewPiece('a', 3, new Dame(board, Color.RED));
-
-        placeNewPiece('e', 4, new Stone(board, Color.BLUE));
-        placeNewPiece('a', 6, new Stone(board, Color.BLUE));
-        placeNewPiece('h', 3, new Stone(board, Color.BLUE));
-
-        placeNewPiece('b', 3, new Stone(board, Color.RED));
-        placeNewPiece('d', 5, new Stone(board, Color.RED));
-        placeNewPiece('d', 3, new Stone(board, Color.RED));
-        placeNewPiece('a', 4, new Stone(board, Color.RED));
-        placeNewPiece('d', 7, new Stone(board, Color.RED));
+//        placeNewPiece('b', 3, new Stone(board, Color.RED));
+//        placeNewPiece('d', 5, new Stone(board, Color.RED));
+//        placeNewPiece('d', 3, new Stone(board, Color.RED));
+//        placeNewPiece('a', 4, new Stone(board, Color.RED));
+//        placeNewPiece('d', 7, new Stone(board, Color.RED));
 
 //        placeNewPiece('a', 2, new Stone(board, Color.BLUE));
 //        placeNewPiece('b', 1, new Stone(board, Color.BLUE));
