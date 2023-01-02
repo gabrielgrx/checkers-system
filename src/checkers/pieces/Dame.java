@@ -35,11 +35,9 @@ public class Dame extends CheckersPiece {
                     p2.setValues(p2.getRow() - 1, p2.getColumn() - 1);
                     p.setValues(p.getRow() - 1, p.getColumn() - 1);
                 }
+                break;
             } else if (!getBoard().thereIsAPiece(p)) {
                 matNoOpponent[p.getRow()][p.getColumn()] = true;
-            }
-            if (getBoard().thereIsAPiece(p)) {
-                break;
             }
             p.setValues(p.getRow() - 1, p.getColumn() - 1);
         }
@@ -54,11 +52,9 @@ public class Dame extends CheckersPiece {
                     p2.setValues(p2.getRow() - 1, p2.getColumn() + 1);
                     p.setValues(p.getRow() - 1, p.getColumn() + 1);
                 }
+                break;
             } else if (!getBoard().thereIsAPiece(p)) {
                 matNoOpponent[p.getRow()][p.getColumn()] = true;
-            }
-            if (getBoard().thereIsAPiece(p)) {
-                break;
             }
             p.setValues(p.getRow() - 1, p.getColumn() + 1);
         }
@@ -73,11 +69,9 @@ public class Dame extends CheckersPiece {
                     p2.setValues(p2.getRow() + 1, p2.getColumn() - 1);
                     p.setValues(p.getRow() + 1, p.getColumn() - 1);
                 }
+                break;
             } else if (!getBoard().thereIsAPiece(p)) {
                 matNoOpponent[p.getRow()][p.getColumn()] = true;
-            }
-            if (getBoard().thereIsAPiece(p)) {
-                break;
             }
             p.setValues(p.getRow() + 1, p.getColumn() - 1);
         }
@@ -92,11 +86,9 @@ public class Dame extends CheckersPiece {
                     p2.setValues(p2.getRow() + 1, p2.getColumn() + 1);
                     p.setValues(p.getRow() + 1, p.getColumn() + 1);
                 }
+                break;
             } else if (!getBoard().thereIsAPiece(p)) {
                 matNoOpponent[p.getRow()][p.getColumn()] = true;
-            }
-            if (getBoard().thereIsAPiece(p)) {
-                break;
             }
             p.setValues(p.getRow() + 1, p.getColumn() + 1);
         }

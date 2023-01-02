@@ -16,6 +16,7 @@ public class CheckersMatch {
     private Color currentPlayer;
     private Board board;
     private boolean endMatch;
+    private CheckersPiece promoted;
 
     private List<Piece> piecesOnTheBoard = new ArrayList<>();
     private List<Piece> capturedPieces = new ArrayList<>();
@@ -39,7 +40,11 @@ public class CheckersMatch {
         return endMatch;
     }
 
-    private boolean terminteMatch() {
+    public CheckersPiece getPromoted() {
+        return promoted;
+    }
+
+    private boolean terminateMatch() {
         List<Piece> blue = piecesOnTheBoard.stream().filter(x -> ((CheckersPiece) x).getColor() == Color.BLUE).toList();
         List<Piece> red = piecesOnTheBoard.stream().filter(x -> ((CheckersPiece) x).getColor() == Color.RED).toList();
         if (blue.isEmpty() || red.isEmpty()) {
@@ -129,8 +134,17 @@ public class CheckersMatch {
         validateTargetPosition(source, target);
         Piece capturedPiece = makeMove(source, target);
 
-        if (terminteMatch()) {
+        CheckersPiece movedPiece = (CheckersPiece) board.piece(target);
+
+        if (terminateMatch()) {
             endMatch = true;
+        }
+        //#Specialmove promoted
+        promoted = null;
+        if (movedPiece instanceof Stone) {
+            if ((movedPiece.getColor() == Color.BLUE && target.getRow() == 0) || (movedPiece.getColor() == Color.RED && target.getRow() == 7)) {
+                promoted = (CheckersPiece) board.piece(target);
+            }
         }
         if (!opponentNearTargetPosition(target)) {
             nextTurn();
@@ -145,48 +159,57 @@ public class CheckersMatch {
         Piece capturedPiece = board.removePiece(target);
         board.placePiece(p, target);
 
-        if (p instanceof Stone) {
-            //Capture piece when moves nw
-            opponentPosition.setValues(source.getRow() - 1, source.getColumn() - 1);
-            if (board.positionExists(opponentPosition) && board.thereIsAPiece(opponentPosition)
-                    && target.getRow() <= opponentPosition.getRow() - 1 && target.getColumn() <= opponentPosition.getColumn() - 1) {
-                capturedPiece = board.removePiece(opponentPosition);
-                piecesOnTheBoard.remove(capturedPiece);
-                capturedPieces.add(capturedPiece);
-                return capturedPiece;
-            }
-
-            //Capture piece when moves ne
-            opponentPosition.setValues(source.getRow() - 1, source.getColumn() + 1);
-            if (board.positionExists(opponentPosition) && board.thereIsAPiece(opponentPosition)
-                    && target.getRow() <= opponentPosition.getRow() - 1 && target.getColumn() >= opponentPosition.getColumn() + 1) {
-                capturedPiece = board.removePiece(opponentPosition);
-                piecesOnTheBoard.remove(capturedPiece);
-                capturedPieces.add(capturedPiece);
-                return capturedPiece;
-            }
-
-            //Capture piece when moves sw
-            opponentPosition.setValues(source.getRow() + 1, source.getColumn() - 1);
-            if (board.positionExists(opponentPosition) && board.thereIsAPiece(opponentPosition)
-                    && target.getRow() >= opponentPosition.getRow() + 1 && target.getColumn() <= opponentPosition.getColumn() - 1) {
-                capturedPiece = board.removePiece(opponentPosition);
-                piecesOnTheBoard.remove(capturedPiece);
-                capturedPieces.add(capturedPiece);
-                return capturedPiece;
-            }
-
-            //Capture piece when moves se
-            opponentPosition.setValues(source.getRow() + 1, source.getColumn() + 1);
-            if (board.positionExists(opponentPosition) && board.thereIsAPiece(opponentPosition)
-                    && target.getRow() >= opponentPosition.getRow() + 1 && target.getColumn() >= opponentPosition.getColumn() + 1) {
-                capturedPiece = board.removePiece(opponentPosition);
-                piecesOnTheBoard.remove(capturedPiece);
-                capturedPieces.add(capturedPiece);
-                return capturedPiece;
-            }
+        //Capture piece when moves nw
+        opponentPosition.setValues(source.getRow() - 1, source.getColumn() - 1);
+        while (!board.thereIsAPiece(opponentPosition)) {
+            opponentPosition.setValues(opponentPosition.getRow() - 1, opponentPosition.getColumn() - 1);
+        }
+        if (board.positionExists(opponentPosition) && board.thereIsAPiece(opponentPosition)
+                && target.getRow() < opponentPosition.getRow() && target.getColumn() < opponentPosition.getColumn()) {
+            capturedPiece = board.removePiece(opponentPosition);
+            piecesOnTheBoard.remove(capturedPiece);
+            capturedPieces.add(capturedPiece);
+            return capturedPiece;
         }
 
+        //Capture piece when moves ne
+        opponentPosition.setValues(source.getRow() - 1, source.getColumn() + 1);
+        while (!board.thereIsAPiece(opponentPosition)) {
+            opponentPosition.setValues(opponentPosition.getRow() - 1, opponentPosition.getColumn() + 1);
+        }
+        if (board.positionExists(opponentPosition) && board.thereIsAPiece(opponentPosition)
+                && target.getRow() <= opponentPosition.getRow() - 1 && target.getColumn() >= opponentPosition.getColumn() + 1) {
+            capturedPiece = board.removePiece(opponentPosition);
+            piecesOnTheBoard.remove(capturedPiece);
+            capturedPieces.add(capturedPiece);
+            return capturedPiece;
+        }
+
+        //Capture piece when moves sw
+        opponentPosition.setValues(source.getRow() + 1, source.getColumn() - 1);
+        while (!board.thereIsAPiece(opponentPosition)) {
+            opponentPosition.setValues(opponentPosition.getRow() + 1, opponentPosition.getColumn() - 1);
+        }
+        if (board.positionExists(opponentPosition) && board.thereIsAPiece(opponentPosition)
+                && target.getRow() >= opponentPosition.getRow() + 1 && target.getColumn() <= opponentPosition.getColumn() - 1) {
+            capturedPiece = board.removePiece(opponentPosition);
+            piecesOnTheBoard.remove(capturedPiece);
+            capturedPieces.add(capturedPiece);
+            return capturedPiece;
+        }
+
+        //Capture piece when moves se
+        opponentPosition.setValues(source.getRow() + 1, source.getColumn() + 1);
+        while (!board.thereIsAPiece(opponentPosition)) {
+            opponentPosition.setValues(opponentPosition.getRow() + 1, opponentPosition.getColumn() + 1);
+        }
+        if (board.positionExists(opponentPosition) && board.thereIsAPiece(opponentPosition)
+                && target.getRow() >= opponentPosition.getRow() + 1 && target.getColumn() >= opponentPosition.getColumn() + 1) {
+            capturedPiece = board.removePiece(opponentPosition);
+            piecesOnTheBoard.remove(capturedPiece);
+            capturedPieces.add(capturedPiece);
+            return capturedPiece;
+        }
         return capturedPiece;
     }
 
@@ -222,7 +245,7 @@ public class CheckersMatch {
 
         placeNewPiece('d', 5, new Dame(board, Color.BLUE));
 //        placeNewPiece('d', 4, new Dame(board, Color.BLUE));
-        placeNewPiece('h', 4, new Dame(board, Color.BLUE));
+        placeNewPiece('h', 3, new Dame(board, Color.BLUE));
         placeNewPiece('f', 2, new Dame(board, Color.BLUE));
 //        placeNewPiece('e', 8, new Dame(board, Color.BLUE));
 //        placeNewPiece('c', 2, new Dame(board, Color.BLUE));
