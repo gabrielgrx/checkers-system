@@ -60,7 +60,7 @@ public class CheckersMatch {
 
     public boolean[][] possibleMoves(CheckersPosition sourcePosition) {
         Position position = sourcePosition.toPosition();
-        vallidateSourcePosition(position);
+        validateSourcePosition(position);
         return board.piece(position).possibleMoves();
     }
 
@@ -72,17 +72,51 @@ public class CheckersMatch {
         Position p3 = new Position(targetPosition.getRow() + 1, targetPosition.getColumn() - 1);
         Position p4 = new Position(targetPosition.getRow() + 1, targetPosition.getColumn() + 1);
 
-        if (board.positionExists(p1) && p.isThereOpponentPiece(p1)) {
-            return true;
+        Position p5 = new Position(targetPosition.getRow() - 2, targetPosition.getColumn() - 2);
+        Position p6 = new Position(targetPosition.getRow() - 2, targetPosition.getColumn() + 2);
+        Position p7 = new Position(targetPosition.getRow() + 2, targetPosition.getColumn() - 2);
+        Position p8 = new Position(targetPosition.getRow() + 2, targetPosition.getColumn() + 2);
+
+        if (p instanceof Stone) {
+            if (board.positionExists(p1) && p.isThereOpponentPiece(p1) && !board.thereIsAPiece(p5)) {
+                return true;
+            }
+            if (board.positionExists(p2) && p.isThereOpponentPiece(p2) && !board.thereIsAPiece(p6)) {
+                return true;
+            }
+            if (board.positionExists(p3) && p.isThereOpponentPiece(p3) && !board.thereIsAPiece(p7)) {
+                return true;
+            }
+            if (board.positionExists(p4) && p.isThereOpponentPiece(p4) && !board.thereIsAPiece(p8)) {
+                return true;
+            }
         }
-        if (board.positionExists(p2) && p.isThereOpponentPiece(p2)) {
-            return true;
-        }
-        if (board.positionExists(p3) && p.isThereOpponentPiece(p3)) {
-            return true;
-        }
-        if (board.positionExists(p4) && p.isThereOpponentPiece(p4)) {
-            return true;
+
+        if (p instanceof Dame) {
+            while (board.positionExists(p1)) {
+                if (p.isThereOpponentPiece(p1)) {
+                    return true;
+                }
+                p1.setValues(p1.getRow() - 1, p1.getColumn() - 1);
+            }
+            while (board.positionExists(p1)) {
+                if (p.isThereOpponentPiece(p1)) {
+                    return true;
+                }
+                p1.setValues(p1.getRow() - 1, p1.getColumn() + 1);
+            }
+            while (board.positionExists(p1)) {
+                if (p.isThereOpponentPiece(p1)) {
+                    return true;
+                }
+                p1.setValues(p1.getRow() + 1, p1.getColumn() - 1);
+            }
+            while (board.positionExists(p1)) {
+                if (p.isThereOpponentPiece(p1)) {
+                    return true;
+                }
+                p1.setValues(p1.getRow() + 1, p1.getColumn() + 1);
+            }
         }
         return false;
     }
@@ -91,7 +125,7 @@ public class CheckersMatch {
 
         Position source = sourcePosition.toPosition();
         Position target = targetPosition.toPosition();
-        vallidateSourcePosition(source);
+        validateSourcePosition(source);
         validateTargetPosition(source, target);
         Piece capturedPiece = makeMove(source, target);
 
@@ -155,7 +189,7 @@ public class CheckersMatch {
         return capturedPiece;
     }
 
-    private void vallidateSourcePosition(Position position) {
+    private void validateSourcePosition(Position position) {
         if (!board.thereIsAPiece(position)) {
             throw new CheckersException("There is no piece on source position");
         }
@@ -185,12 +219,23 @@ public class CheckersMatch {
 
     private void initialSetup() {
 
-        placeNewPiece('e', 4, new Stone(board, Color.BLUE));
-        placeNewPiece('e', 8, new Stone(board, Color.BLUE));
+//        placeNewPiece('h', 3, new Dame(board, Color.BLUE));
+//        placeNewPiece('e', 7, new Dame(board, Color.BLUE));
+//        placeNewPiece('e', 8, new Dame(board, Color.BLUE));
+//
+//        placeNewPiece('f', 5, new Dame(board, Color.RED));
+//        placeNewPiece('c', 4, new Dame(board, Color.RED));
+//        placeNewPiece('a', 3, new Dame(board, Color.RED));
 
+        placeNewPiece('e', 4, new Stone(board, Color.BLUE));
+        placeNewPiece('a', 6, new Stone(board, Color.BLUE));
+        placeNewPiece('h', 3, new Stone(board, Color.BLUE));
+
+        placeNewPiece('b', 3, new Stone(board, Color.RED));
         placeNewPiece('d', 5, new Stone(board, Color.RED));
         placeNewPiece('d', 3, new Stone(board, Color.RED));
-        placeNewPiece('b', 3, new Stone(board, Color.RED));
+        placeNewPiece('a', 4, new Stone(board, Color.RED));
+        placeNewPiece('d', 7, new Stone(board, Color.RED));
 
 //        placeNewPiece('a', 2, new Stone(board, Color.BLUE));
 //        placeNewPiece('b', 1, new Stone(board, Color.BLUE));
