@@ -25,8 +25,8 @@
 As regras do jogo são as mesmas do jogo de damas comum.
 
 * Execute a aplicação em algum terminal que possibilite cores
-* As peças Azuis começãm
-* Simbolo de cada peça:
+* As peças Azuis começam
+* Símbolo de cada peça:
   - Stone - *S*
   - Dama - *D*
 * Digite entre a1 e h8 para selecionar a peça que deseja mover, depois digite novamente entre as opções possíveis de movimento que aparecerão em amarelo
@@ -44,5 +44,5 @@ As regras do jogo são as mesmas do jogo de damas comum.
 </h4>
 
 * O Projeto está incompleto. Estão faltando as seguintes funcionaldiades:
-  - Encerrar turno ao movimentar alguma peça após terminar rodada de captura -
-  - Obrigar o jogador atual a capturar a peça adversária caso seja possível -
+  - Encerrar turno ao movimentar alguma peça após terminar rodada de captura
+  - Obrigar o jogador atual a capturar a peça adversária caso seja possível
