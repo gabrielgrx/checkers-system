@@ -145,46 +145,47 @@ public class CheckersMatch {
         Piece capturedPiece = board.removePiece(target);
         board.placePiece(p, target);
 
-        //Capture piece when moves nw
-        opponentPosition.setValues(source.getRow() - 1, source.getColumn() - 1);
-        if (board.positionExists(opponentPosition) && board.thereIsAPiece(opponentPosition)
-                && target.getRow() <= opponentPosition.getRow() - 1 && target.getColumn() <= opponentPosition.getColumn() - 1) {
-            capturedPiece = board.removePiece(opponentPosition);
-            piecesOnTheBoard.remove(capturedPiece);
-            capturedPieces.add(capturedPiece);
-            return capturedPiece;
-        }
+        if (p instanceof Stone) {
+            //Capture piece when moves nw
+            opponentPosition.setValues(source.getRow() - 1, source.getColumn() - 1);
+            if (board.positionExists(opponentPosition) && board.thereIsAPiece(opponentPosition)
+                    && target.getRow() <= opponentPosition.getRow() - 1 && target.getColumn() <= opponentPosition.getColumn() - 1) {
+                capturedPiece = board.removePiece(opponentPosition);
+                piecesOnTheBoard.remove(capturedPiece);
+                capturedPieces.add(capturedPiece);
+                return capturedPiece;
+            }
 
-        //Capture piece when moves ne
-        opponentPosition.setValues(source.getRow() - 1, source.getColumn() + 1);
-        if (board.positionExists(opponentPosition) && board.thereIsAPiece(opponentPosition)
-                && target.getRow() <= opponentPosition.getRow() - 1 && target.getColumn() >= opponentPosition.getColumn() + 1) {
-            capturedPiece = board.removePiece(opponentPosition);
-            piecesOnTheBoard.remove(capturedPiece);
-            capturedPieces.add(capturedPiece);
-            return capturedPiece;
-        }
+            //Capture piece when moves ne
+            opponentPosition.setValues(source.getRow() - 1, source.getColumn() + 1);
+            if (board.positionExists(opponentPosition) && board.thereIsAPiece(opponentPosition)
+                    && target.getRow() <= opponentPosition.getRow() - 1 && target.getColumn() >= opponentPosition.getColumn() + 1) {
+                capturedPiece = board.removePiece(opponentPosition);
+                piecesOnTheBoard.remove(capturedPiece);
+                capturedPieces.add(capturedPiece);
+                return capturedPiece;
+            }
 
-        //Capture piece when moves sw
-        opponentPosition.setValues(source.getRow() + 1, source.getColumn() - 1);
-        if (board.positionExists(opponentPosition) && board.thereIsAPiece(opponentPosition)
-                && target.getRow() >= opponentPosition.getRow() + 1 && target.getColumn() <= opponentPosition.getColumn() - 1) {
-            capturedPiece = board.removePiece(opponentPosition);
-            piecesOnTheBoard.remove(capturedPiece);
-            capturedPieces.add(capturedPiece);
-            return capturedPiece;
-        }
+            //Capture piece when moves sw
+            opponentPosition.setValues(source.getRow() + 1, source.getColumn() - 1);
+            if (board.positionExists(opponentPosition) && board.thereIsAPiece(opponentPosition)
+                    && target.getRow() >= opponentPosition.getRow() + 1 && target.getColumn() <= opponentPosition.getColumn() - 1) {
+                capturedPiece = board.removePiece(opponentPosition);
+                piecesOnTheBoard.remove(capturedPiece);
+                capturedPieces.add(capturedPiece);
+                return capturedPiece;
+            }
 
-        //Capture piece when moves se
-        opponentPosition.setValues(source.getRow() + 1, source.getColumn() + 1);
-        if (board.positionExists(opponentPosition) && board.thereIsAPiece(opponentPosition)
-                && target.getRow() >= opponentPosition.getRow() + 1 && target.getColumn() >= opponentPosition.getColumn() + 1) {
-            capturedPiece = board.removePiece(opponentPosition);
-            piecesOnTheBoard.remove(capturedPiece);
-            capturedPieces.add(capturedPiece);
-            return capturedPiece;
+            //Capture piece when moves se
+            opponentPosition.setValues(source.getRow() + 1, source.getColumn() + 1);
+            if (board.positionExists(opponentPosition) && board.thereIsAPiece(opponentPosition)
+                    && target.getRow() >= opponentPosition.getRow() + 1 && target.getColumn() >= opponentPosition.getColumn() + 1) {
+                capturedPiece = board.removePiece(opponentPosition);
+                piecesOnTheBoard.remove(capturedPiece);
+                capturedPieces.add(capturedPiece);
+                return capturedPiece;
+            }
         }
-
 
         return capturedPiece;
     }
@@ -220,17 +221,18 @@ public class CheckersMatch {
     private void initialSetup() {
 
         placeNewPiece('d', 5, new Dame(board, Color.BLUE));
-        placeNewPiece('a', 8, new Dame(board, Color.BLUE));
-        placeNewPiece('h', 1, new Dame(board, Color.BLUE));
-//        placeNewPiece('g', 5, new Dame(board, Color.BLUE));
+//        placeNewPiece('d', 4, new Dame(board, Color.BLUE));
+        placeNewPiece('h', 4, new Dame(board, Color.BLUE));
+        placeNewPiece('f', 2, new Dame(board, Color.BLUE));
 //        placeNewPiece('e', 8, new Dame(board, Color.BLUE));
 //        placeNewPiece('c', 2, new Dame(board, Color.BLUE));
 
         placeNewPiece('b', 7, new Dame(board, Color.RED));
-        placeNewPiece('f', 7, new Dame(board, Color.RED));
+        placeNewPiece('e', 6, new Dame(board, Color.RED));
         placeNewPiece('b', 3, new Dame(board, Color.RED));
-        placeNewPiece('f', 3, new Dame(board, Color.RED));
-//        placeNewPiece('d', 2, new Dame(board, Color.RED));
+        placeNewPiece('e', 3, new Dame(board, Color.RED));
+        placeNewPiece('c', 5, new Dame(board, Color.RED));
+        placeNewPiece('c', 6, new Dame(board, Color.RED));
 
 //        placeNewPiece('e', 4, new Stone(board, Color.BLUE));
 //        placeNewPiece('a', 6, new Stone(board, Color.BLUE));

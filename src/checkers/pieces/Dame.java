@@ -28,18 +28,18 @@ public class Dame extends CheckersPiece {
         //nw
         p.setValues(position.getRow() - 1, position.getColumn() - 1);
         while (getBoard().positionExists(p)) {
-            if (isThereOpponentPiece(p)) {
+            if (getBoard().thereIsAPiece(p) && isThereOpponentPiece(p)) {
                 p2.setValues(p.getRow() - 1, p.getColumn() - 1);
                 while (getBoard().positionExists(p2) && !getBoard().thereIsAPiece(p2)) {
+                    matThereIsOpponent[p2.getRow()][p2.getColumn()] = true;
+                    p2.setValues(p2.getRow() - 1, p2.getColumn() - 1);
                     p.setValues(p.getRow() - 1, p.getColumn() - 1);
-                    p2.setValues(p.getRow() - 1, p.getColumn() - 1);
-                    matThereIsOpponent[p.getRow()][p.getColumn()] = true;
                 }
-            }
-            if (!getBoard().thereIsAPiece(p)) {
+            } else if (!getBoard().thereIsAPiece(p)) {
                 matNoOpponent[p.getRow()][p.getColumn()] = true;
-                p.setValues(p.getRow() - 1, p.getColumn() - 1);
-                p2.setValues(p2.getRow() - 1, p2.getColumn() - 1);
+            }
+            if (getBoard().thereIsAPiece(p)) {
+                break;
             }
             p.setValues(p.getRow() - 1, p.getColumn() - 1);
         }
@@ -47,18 +47,18 @@ public class Dame extends CheckersPiece {
         //ne
         p.setValues(position.getRow() - 1, position.getColumn() + 1);
         while (getBoard().positionExists(p)) {
-            if (isThereOpponentPiece(p)) {
+            if (getBoard().thereIsAPiece(p) && isThereOpponentPiece(p)) {
                 p2.setValues(p.getRow() - 1, p.getColumn() + 1);
                 while (getBoard().positionExists(p2) && !getBoard().thereIsAPiece(p2)) {
+                    matThereIsOpponent[p2.getRow()][p2.getColumn()] = true;
+                    p2.setValues(p2.getRow() - 1, p2.getColumn() + 1);
                     p.setValues(p.getRow() - 1, p.getColumn() + 1);
-                    p2.setValues(p.getRow() - 1, p.getColumn() + 1);
-                    matThereIsOpponent[p.getRow()][p.getColumn()] = true;
                 }
-            }
-                if (!getBoard().thereIsAPiece(p)) {
+            } else if (!getBoard().thereIsAPiece(p)) {
                 matNoOpponent[p.getRow()][p.getColumn()] = true;
-                p.setValues(p.getRow() - 1, p.getColumn() + 1);
-                p2.setValues(p2.getRow() - 1, p2.getColumn() + 1);
+            }
+            if (getBoard().thereIsAPiece(p)) {
+                break;
             }
             p.setValues(p.getRow() - 1, p.getColumn() + 1);
         }
@@ -66,18 +66,18 @@ public class Dame extends CheckersPiece {
         //sw
         p.setValues(position.getRow() + 1, position.getColumn() - 1);
         while (getBoard().positionExists(p)) {
-            if (isThereOpponentPiece(p)) {
+            if (getBoard().thereIsAPiece(p) && isThereOpponentPiece(p)) {
                 p2.setValues(p.getRow() + 1, p.getColumn() - 1);
                 while (getBoard().positionExists(p2) && !getBoard().thereIsAPiece(p2)) {
+                    matThereIsOpponent[p2.getRow()][p2.getColumn()] = true;
+                    p2.setValues(p2.getRow() + 1, p2.getColumn() - 1);
                     p.setValues(p.getRow() + 1, p.getColumn() - 1);
-                    p2.setValues(p.getRow() + 1, p.getColumn() - 1);
-                    matThereIsOpponent[p.getRow()][p.getColumn()] = true;
                 }
-            }
-            if (!getBoard().thereIsAPiece(p)) {
+            } else if (!getBoard().thereIsAPiece(p)) {
                 matNoOpponent[p.getRow()][p.getColumn()] = true;
-                p.setValues(p.getRow() + 1, p.getColumn() - 1);
-                p2.setValues(p2.getRow() + 1, p2.getColumn() - 1);
+            }
+            if (getBoard().thereIsAPiece(p)) {
+                break;
             }
             p.setValues(p.getRow() + 1, p.getColumn() - 1);
         }
@@ -85,18 +85,18 @@ public class Dame extends CheckersPiece {
         //se
         p.setValues(position.getRow() + 1, position.getColumn() + 1);
         while (getBoard().positionExists(p)) {
-            if (isThereOpponentPiece(p)) {
+            if (getBoard().thereIsAPiece(p) && isThereOpponentPiece(p)) {
                 p2.setValues(p.getRow() + 1, p.getColumn() + 1);
                 while (getBoard().positionExists(p2) && !getBoard().thereIsAPiece(p2)) {
+                    matThereIsOpponent[p2.getRow()][p2.getColumn()] = true;
+                    p2.setValues(p2.getRow() + 1, p2.getColumn() + 1);
                     p.setValues(p.getRow() + 1, p.getColumn() + 1);
-                    p2.setValues(p.getRow() + 1, p.getColumn() + 1);
-                    matThereIsOpponent[p.getRow()][p.getColumn()] = true;
                 }
-            }
-            if (!getBoard().thereIsAPiece(p)) {
+            } else if (!getBoard().thereIsAPiece(p)) {
                 matNoOpponent[p.getRow()][p.getColumn()] = true;
-                p.setValues(p.getRow() + 1, p.getColumn() + 1);
-                p2.setValues(p2.getRow() + 1, p2.getColumn() + 1);
+            }
+            if (getBoard().thereIsAPiece(p)) {
+                break;
             }
             p.setValues(p.getRow() + 1, p.getColumn() + 1);
         }
@@ -112,8 +112,10 @@ public class Dame extends CheckersPiece {
         }
 
         if (matThereIsOpponent == mat) {
+            System.out.println("teste");
             return mat;
         } else {
+            System.out.println("deu ruim");
             return mat = matNoOpponent;
         }
     }
