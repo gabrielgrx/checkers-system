@@ -139,18 +139,35 @@ public class CheckersMatch {
         if (terminateMatch()) {
             endMatch = true;
         }
+
+        if (!opponentNearTargetPosition(target)) {
+            nextTurn();
+        }
+
         //#Specialmove promoted
         promoted = null;
         if (movedPiece instanceof Stone) {
             if ((movedPiece.getColor() == Color.BLUE && target.getRow() == 0) || (movedPiece.getColor() == Color.RED && target.getRow() == 7)) {
                 promoted = (CheckersPiece) board.piece(target);
+                promoted = replacePromotedPiece();
             }
-        }
-        if (!opponentNearTargetPosition(target)) {
-            nextTurn();
         }
 
         return (CheckersPiece) capturedPiece;
+    }
+
+    public CheckersPiece replacePromotedPiece() {
+        if (promoted == null) {
+            throw new IllegalStateException("There is no piece to be promoted");
+        }
+        Position pos = promoted.getCheckersPosition().toPosition();
+        Piece p = board.removePiece(pos);
+        piecesOnTheBoard.remove(p);
+        CheckersPiece newPiece = new Dame(board, promoted.getColor());
+        board.placePiece(newPiece, pos);
+        piecesOnTheBoard.add(newPiece);
+
+        return newPiece;
     }
 
     private Piece makeMove(Position source, Position target) {
@@ -161,8 +178,10 @@ public class CheckersMatch {
 
         //Capture piece when moves nw
         opponentPosition.setValues(source.getRow() - 1, source.getColumn() - 1);
-        while (!board.thereIsAPiece(opponentPosition)) {
-            opponentPosition.setValues(opponentPosition.getRow() - 1, opponentPosition.getColumn() - 1);
+        if (board.piece(target) instanceof Dame && board.positionExists(opponentPosition)) {
+            while (!board.thereIsAPiece(opponentPosition) && board.positionExists(opponentPosition)) {
+                opponentPosition.setValues(opponentPosition.getRow() - 1, opponentPosition.getColumn() - 1);
+            }
         }
         if (board.positionExists(opponentPosition) && board.thereIsAPiece(opponentPosition)
                 && target.getRow() < opponentPosition.getRow() && target.getColumn() < opponentPosition.getColumn()) {
@@ -174,11 +193,13 @@ public class CheckersMatch {
 
         //Capture piece when moves ne
         opponentPosition.setValues(source.getRow() - 1, source.getColumn() + 1);
-        while (!board.thereIsAPiece(opponentPosition)) {
-            opponentPosition.setValues(opponentPosition.getRow() - 1, opponentPosition.getColumn() + 1);
+        if (board.piece(target) instanceof Dame && board.positionExists(opponentPosition)) {
+            while (!board.thereIsAPiece(opponentPosition) && board.positionExists(opponentPosition)) {
+                opponentPosition.setValues(opponentPosition.getRow() - 1, opponentPosition.getColumn() + 1);
+            }
         }
         if (board.positionExists(opponentPosition) && board.thereIsAPiece(opponentPosition)
-                && target.getRow() <= opponentPosition.getRow() - 1 && target.getColumn() >= opponentPosition.getColumn() + 1) {
+                && target.getRow() < opponentPosition.getRow() && target.getColumn() > opponentPosition.getColumn()) {
             capturedPiece = board.removePiece(opponentPosition);
             piecesOnTheBoard.remove(capturedPiece);
             capturedPieces.add(capturedPiece);
@@ -187,11 +208,13 @@ public class CheckersMatch {
 
         //Capture piece when moves sw
         opponentPosition.setValues(source.getRow() + 1, source.getColumn() - 1);
-        while (!board.thereIsAPiece(opponentPosition)) {
-            opponentPosition.setValues(opponentPosition.getRow() + 1, opponentPosition.getColumn() - 1);
+        if (board.piece(target) instanceof Dame && board.positionExists(opponentPosition)) {
+            while (!board.thereIsAPiece(opponentPosition) && board.positionExists(opponentPosition)) {
+                opponentPosition.setValues(opponentPosition.getRow() + 1, opponentPosition.getColumn() - 1);
+            }
         }
         if (board.positionExists(opponentPosition) && board.thereIsAPiece(opponentPosition)
-                && target.getRow() >= opponentPosition.getRow() + 1 && target.getColumn() <= opponentPosition.getColumn() - 1) {
+                && target.getRow() > opponentPosition.getRow() && target.getColumn() < opponentPosition.getColumn()) {
             capturedPiece = board.removePiece(opponentPosition);
             piecesOnTheBoard.remove(capturedPiece);
             capturedPieces.add(capturedPiece);
@@ -200,11 +223,13 @@ public class CheckersMatch {
 
         //Capture piece when moves se
         opponentPosition.setValues(source.getRow() + 1, source.getColumn() + 1);
-        while (!board.thereIsAPiece(opponentPosition)) {
-            opponentPosition.setValues(opponentPosition.getRow() + 1, opponentPosition.getColumn() + 1);
+        if (board.piece(target) instanceof Dame && board.positionExists(opponentPosition)) {
+            while (!board.thereIsAPiece(opponentPosition) && board.positionExists(opponentPosition)) {
+                opponentPosition.setValues(opponentPosition.getRow() + 1, opponentPosition.getColumn() + 1);
+            }
         }
         if (board.positionExists(opponentPosition) && board.thereIsAPiece(opponentPosition)
-                && target.getRow() >= opponentPosition.getRow() + 1 && target.getColumn() >= opponentPosition.getColumn() + 1) {
+                && target.getRow() > opponentPosition.getRow() && target.getColumn() > opponentPosition.getColumn()) {
             capturedPiece = board.removePiece(opponentPosition);
             piecesOnTheBoard.remove(capturedPiece);
             capturedPieces.add(capturedPiece);
@@ -243,29 +268,11 @@ public class CheckersMatch {
 
     private void initialSetup() {
 
-        placeNewPiece('d', 5, new Dame(board, Color.BLUE));
-//        placeNewPiece('d', 4, new Dame(board, Color.BLUE));
-        placeNewPiece('h', 3, new Dame(board, Color.BLUE));
-        placeNewPiece('f', 2, new Dame(board, Color.BLUE));
-//        placeNewPiece('e', 8, new Dame(board, Color.BLUE));
-//        placeNewPiece('c', 2, new Dame(board, Color.BLUE));
+        placeNewPiece('c', 2, new Stone(board, Color.BLUE));
+        placeNewPiece('b', 3, new Stone(board, Color.RED));
+        placeNewPiece('b', 5, new Stone(board, Color.RED));
+        placeNewPiece('f', 7, new Stone(board, Color.RED));
 
-        placeNewPiece('b', 7, new Dame(board, Color.RED));
-        placeNewPiece('e', 6, new Dame(board, Color.RED));
-        placeNewPiece('b', 3, new Dame(board, Color.RED));
-        placeNewPiece('e', 3, new Dame(board, Color.RED));
-        placeNewPiece('c', 5, new Dame(board, Color.RED));
-        placeNewPiece('c', 6, new Dame(board, Color.RED));
-
-//        placeNewPiece('e', 4, new Stone(board, Color.BLUE));
-//        placeNewPiece('a', 6, new Stone(board, Color.BLUE));
-//        placeNewPiece('h', 3, new Stone(board, Color.BLUE));
-//
-//        placeNewPiece('b', 3, new Stone(board, Color.RED));
-//        placeNewPiece('d', 5, new Stone(board, Color.RED));
-//        placeNewPiece('d', 3, new Stone(board, Color.RED));
-//        placeNewPiece('a', 4, new Stone(board, Color.RED));
-//        placeNewPiece('d', 7, new Stone(board, Color.RED));
 
 //        placeNewPiece('a', 2, new Stone(board, Color.BLUE));
 //        placeNewPiece('b', 1, new Stone(board, Color.BLUE));

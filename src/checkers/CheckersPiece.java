@@ -23,8 +23,7 @@ public  abstract class CheckersPiece extends Piece {
         return p != null && p.getColor() != color;
     }
 
-    protected boolean isThereOpponentPieceNear(Position position) {
-        CheckersPiece p = (CheckersPiece) getBoard().piece(position);
-        return p != null && p.getColor() != color;
+    public CheckersPosition getCheckersPosition() {
+        return CheckersPosition.fromPosition(position);
     }
 }
